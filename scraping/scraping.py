@@ -1,17 +1,20 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by  import By
 
-DRIVER_PATH = r'C:\Users\fxnic\Documents\ChromeDriver\chromedriver.exe'
+def open_url(url):
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service)
+    driver.get(url)
 
-options = Options()
-options.headless = True
-options.add_argument("--window-size=1920,1200")
+    print(driver.page_source)
+    insert_fields(driver)
+    # driver.quit()
+    return 0
 
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service)
-driver.get("https://nswi.bkpm.go.id/data_statistik")
+def insert_fields(driver):
+    negara = driver.find_element(By.CLASS_NAME('col-md-8 col-sm-12"')).click()
 
-print(driver.page_source)
-# driver.quit()
+if __name__ == '__main__':
+    open_url("https://nswi.bkpm.go.id/data_statistik")
