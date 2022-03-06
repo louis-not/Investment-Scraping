@@ -4,7 +4,6 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 import time
 import pandas as pd
-from src.transform import transform
 
 
 def check_params(params):
@@ -25,8 +24,8 @@ def scrape(params):
     if insertion and df is not None:
         print('scraping process succeed')
 
-    time.sleep(2)
-    driver.quit()
+    # time.sleep(2)
+    # driver.quit()
 
     return df
 

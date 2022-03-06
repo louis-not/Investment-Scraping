@@ -29,7 +29,7 @@ def main():
     outputdirectory = os.path.dirname(__file__)
     outputdirectory = outputdirectory[:len(outputdirectory)-7] + '/output'
     writer = pd.ExcelWriter(outputdirectory+'/test.xlsx', engine='xlsxwriter')
-    automate(testparams, writer, 2018, 2021, groupby)
+    automate(testparams, writer, 2021, 2021, groupby)
     # df = scrape(testparams)
     # transform(df, writer, 'test')
     writer.save()
