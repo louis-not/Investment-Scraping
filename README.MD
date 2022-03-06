@@ -1,4 +1,4 @@
-# Investment Report Scraping from  _https://nswi.bkpm.go.id/data_statistik_
+# Investment Data Scraping from  _https://nswi.bkpm.go.id/data_statistik_
 
 
 my first project web-scraping project using _Selenium 4._ This script generate excel files from the url source. 
