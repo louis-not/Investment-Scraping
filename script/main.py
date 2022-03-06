@@ -33,7 +33,7 @@ def main():
     }
     outputdirectory = os.path.dirname(__file__)
     outputdirectory = outputdirectory[:len(outputdirectory)-7] + '/output'
-    writer = pd.ExcelWriter(outputdirectory+outputname', engine='xlsxwriter')
+    writer = pd.ExcelWriter(outputdirectory+outputname, engine='xlsxwriter')
     automate(testparams, writer, yearBegin, yearEnd, groupby)
     writer.save()
 
