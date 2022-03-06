@@ -4,9 +4,8 @@ Change main function according to the needs,
 use params to modified the result from the scraping
 """
 
-from scraping.scraping import scrape
-from scraping.scraping import check_params
-
+from src.scraping import scrape
+from src.transform import transform
 
 def main():
     params = {
@@ -23,7 +22,8 @@ def main():
     }
     # uncomment for checking passing parameter
     # check_params(params)
-    scrape(params)
+    df = scrape(params)
+    transform(df)
 
     return 0
 
