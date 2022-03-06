@@ -10,11 +10,11 @@ from scraping.scraping import check_params
 
 def main():
     params = {
-        'url': "https://nswi.bkpm.go.id/data_statistik",
+        'url': 'https://nswi.bkpm.go.id/integrator/dataumum/index.php?lang=ID',
         'field': 'Negara',
         'periode': 'Per Tahun',
-        'tahunAwal': 2017,
-        'tahunAkhir': 2018,
+        'tahunAwal': 2020,
+        'tahunAkhir': 2020,
         'negara': 'Indonesia',
         'provinsi': 'Daerah Khusus Ibukota Jakarta',
         'kabupaten': None,

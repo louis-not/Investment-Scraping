@@ -2,10 +2,6 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
-
 import time
 
 def check_params(params):
@@ -15,27 +11,31 @@ def check_params(params):
 def scrape(params):
     """use to run the scraping script"""
     url = params['url']
-    # for chrome driver
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.get(url)
     time.sleep(3)
-
     try:
-        selector = '//select[@id="berdasarkan"]'
-        element = WebDriverWait(driver,5).until(
-            EC.presence_of_element_located((By.XPATH, selector))
-        )
-        element.click()
-        # wait = WebDriverWait(driver,10)
-        # wait.until(EC.element_to_be_clickable((By.XPATH, selector))).click()
-        # driver.find_element(By.XPATH, selector).click()
+        insertion = insert_fields(driver, params)
 
-    # insert_fields('//*[@id="berdasarkan"]',)
+        if insertion:
+            print('process succeed')
     finally:
+        time.sleep(5)
         driver.quit()
 
     return 0
 
-def insert_fields(xPath):
+def insert_fields(driver,params):
+    """use to insert fields from the params to the website and request for data"""
+    driver.find_element(By.XPATH,'/html/body/form/div/div/div/div/table/tbody/tr[1]/td/div/div[2]/div[1]/div/div/a/span').click()
+    driver.find_element(By.XPATH,'/html/body/form/div/div/div/div/table/tbody/tr[1]/td/div/div[2]/div[1]/div/div/div/div/input').send_keys('Negara\n')
+    driver.find_element(By.XPATH, '//*[@id="peringkat"]/table/tbody/tr[2]/td/div[1]/div[2]/div/label/span').click()
+    driver.find_element(By.XPATH, '//*[@id="tahunAwal_chosen"]/a/span').click()
+    driver.find_element(By.XPATH, '//*[@id="tahunAwal_chosen"]/div/div/input').send_keys(str(params['tahunAwal']) + '\n')
+    driver.find_element(By.XPATH, '//*[@id="tahunAkhir_chosen"]/a/span').click()
+    driver.find_element(By.XPATH, '//*[@id="tahunAkhir_chosen"]/div/div/input').send_keys(str(params['tahunAkhir']) + '\n')
+    driver.find_element(By.XPATH, '//*[@id="filterNegara_chosen"]').click()
+    driver.find_element(By.XPATH, '//*[@id="filterNegara_chosen"]/ul/li/input').send_keys(params['negara'] + '\n')
+    driver.find_element(By.XPATH, '//*[@id="peringkat"]/table/tbody/tr[4]/td/div/button').click()
 
-    negara = driver.find_element(By.CLASS_NAME('col-md-8 col-sm-12"')).click()
+    return True
