@@ -12,7 +12,13 @@ import os
 
 
 def main():
+    """ edit here """
     groupby = 'year'    # year / sector / province
+    outputname = 'test_output.xlsx'
+    yearBegin = 2021
+    yearEnd = 2021
+
+    """ don't edit here """
     testparams = {
         'url': 'https://nswi.bkpm.go.id/integrator/dataumum/index.php?lang=ID',
         'field': 'Sektor',
@@ -25,13 +31,10 @@ def main():
         'sektor': None,
         'kbli': None
     }
-
     outputdirectory = os.path.dirname(__file__)
     outputdirectory = outputdirectory[:len(outputdirectory)-7] + '/output'
-    writer = pd.ExcelWriter(outputdirectory+'/test.xlsx', engine='xlsxwriter')
-    automate(testparams, writer, 2021, 2021, groupby)
-    # df = scrape(testparams)
-    # transform(df, writer, 'test')
+    writer = pd.ExcelWriter(outputdirectory+outputname', engine='xlsxwriter')
+    automate(testparams, writer, yearBegin, yearEnd, groupby)
     writer.save()
 
     return 0
