@@ -3,6 +3,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 import time
+import pandas as pd
+
 
 def check_params(params):
     for key, value in params.items():
@@ -13,14 +15,14 @@ def scrape(params):
     url = params['url']
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.get(url)
-    time.sleep(2)
+    time.sleep(1)
     try:
         insertion = insert_fields(driver, params)
-        time.sleep(4)
-        scraping = get_data(driver)
-
-        if insertion and scraping :
-            print('process succeed')
+        time.sleep(2)
+        # df = get_data(driver)
+        # print(df)
+        # if insertion and df is not None :
+        #     print('process succeed')
     finally:
         time.sleep(10)
         driver.quit()
@@ -46,14 +48,26 @@ def insert_fields(driver,params):
 
 def get_data(driver):
     """scrape data from intendeed page"""
-    text = driver.find_element(By.XPATH,
-                               '/html/body/form[1]/table/tbody/tr[2]/td/div/div[1]/table/tbody/tr[2]/td/table[2]/tbody/tr[2]/td[3]/div/span').text
-    if text == 'No Data Available':
-        print('No data')
-    # try :
+    selector = '#rt_NS_ > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td:nth-child(3) > table'
+    table = pd.read_html(driver.find_element(By.CSS_SELECTOR, selector)).get_attribute('outerHTML')[0]
+    # table.get_attribute('outerHTML')[0]
+    print(table)
+
+    return table
+    # try:
+    #     selector = '#rt_NS_ > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td:nth-child(3) > table'
+    #     table = pd.read_html(driver.find_element(By.CSS_SELECTOR,selector))
+    #     table.get_attribute('outerHTML')[0]
+    #     print(table)
     #
-    #     pass
+    #     return table
     # except:
+    #     log = driver.find_element(By.XPATH,
+    #                               '/html/body/form[1]/table/tbody/tr[2]/td/div/div[1]/table/tbody/tr[2]/td/table[2]/tbody/tr[2]/td[3]/div/span').text
+    #     if log == 'No data available':
+    #         print('No data found')
+    #     try:
     #
-    # finally:
-        return True
+    #     finally:
+    #         print('error on get_data function')
+    #         return None
