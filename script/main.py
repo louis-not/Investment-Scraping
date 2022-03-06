@@ -6,9 +6,14 @@ use params to modified the result from the scraping
 
 from src.scraping import scrape
 from src.transform import transform
+from src.auto import automate
+import pandas as pd
+import os
+
 
 def main():
-    params = {
+    groupby = 'year'    # year / sector / province
+    testparams = {
         'url': 'https://nswi.bkpm.go.id/integrator/dataumum/index.php?lang=ID',
         'field': 'Sektor',
         'periode': 'Per Tahun',
@@ -20,10 +25,14 @@ def main():
         'sektor': None,
         'kbli': None
     }
-    # uncomment for checking passing parameter
-    # check_params(params)
-    df = scrape(params)
-    transform(df)
+
+    outputdirectory = os.path.dirname(__file__)
+    outputdirectory = outputdirectory[:len(outputdirectory)-7] + '/output'
+    writer = pd.ExcelWriter(outputdirectory+'/test.xlsx', engine='xlsxwriter')
+    automate(testparams, writer, 2018, 2021, groupby)
+    # df = scrape(testparams)
+    # transform(df, writer, 'test')
+    writer.save()
 
     return 0
 
