@@ -11,7 +11,7 @@ from scraping.scraping import check_params
 def main():
     params = {
         'url': 'https://nswi.bkpm.go.id/integrator/dataumum/index.php?lang=ID',
-        'field': 'Negara',
+        'field': 'Sektor',
         'periode': 'Per Tahun',
         'tahunAwal': 2020,
         'tahunAkhir': 2020,

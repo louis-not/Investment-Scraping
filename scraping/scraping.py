@@ -30,7 +30,7 @@ def scrape(params):
 def insert_fields(driver,params):
     """use to insert fields from the params to the website and request for data"""
     driver.find_element(By.XPATH,'/html/body/form/div/div/div/div/table/tbody/tr[1]/td/div/div[2]/div[1]/div/div/a/span').click()
-    driver.find_element(By.XPATH,'/html/body/form/div/div/div/div/table/tbody/tr[1]/td/div/div[2]/div[1]/div/div/div/div/input').send_keys('Negara\n')
+    driver.find_element(By.XPATH,'/html/body/form/div/div/div/div/table/tbody/tr[1]/td/div/div[2]/div[1]/div/div/div/div/input').send_keys(params['field']+'\n')
     driver.find_element(By.XPATH, '//*[@id="peringkat"]/table/tbody/tr[2]/td/div[1]/div[2]/div/label/span').click()
     driver.find_element(By.XPATH, '//*[@id="tahunAwal_chosen"]/a/span').click()
     driver.find_element(By.XPATH, '//*[@id="tahunAwal_chosen"]/div/div/input').send_keys(str(params['tahunAwal']) + '\n')
