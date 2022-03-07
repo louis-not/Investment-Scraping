@@ -54,12 +54,12 @@ def insert_fields(driver, params):
         driver.find_element(By.XPATH,
                             '//*[@id="tahunAkhir_chosen"]/div/div/input'
                             ).send_keys(str(params['tahunAkhir']) + '\n')
-        driver.find_element(By.XPATH,
-                            '//*[@id="filterNegara_chosen"]'
-                            ).click()
-        driver.find_element(By.XPATH,
-                            '//*[@id="filterNegara_chosen"]/ul/li/input'
-                            ).send_keys(params['negara'] + '\n')
+        # driver.find_element(By.XPATH,
+        #                     '//*[@id="filterNegara_chosen"]'
+        #                     ).click()
+        # driver.find_element(By.XPATH,
+        #                     '//*[@id="filterNegara_chosen"]/ul/li/input'
+        #                     ).send_keys(params['negara'] + '\n')
         driver.find_element(By.XPATH,
                             '//*[@id="filterProv_chosen"]'
                             ).click()
