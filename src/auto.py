@@ -13,6 +13,7 @@ def automate(params, writer ,begin, end, groupby):
                  'Riau', 'Sulawesi Barat', 'Sulawesi Selatan', 'Sulawesi Tengah', 'Sulawesi Tenggara',
                  'Sulawesi Utara', 'Sulawesi Barat'
                  ]
+    # provinces = ['Aceh']
     for year in range(begin,end+1):
         params['tahunAwal'] = year
         params['tahunAkhir'] = year
@@ -23,3 +24,4 @@ def automate(params, writer ,begin, end, groupby):
             transform(df, writer, str(year)+'_'+province)
 
     return True
+

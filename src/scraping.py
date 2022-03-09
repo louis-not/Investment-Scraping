@@ -2,6 +2,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 import time
 import pandas as pd
 
@@ -14,7 +15,11 @@ def check_params(params):
 def scrape(params):
     """use to run the scraping script"""
     url = params['url']
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    options = Options()
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(
+        service=Service(ChromeDriverManager().install()),
+        options=options)
     driver.get(url)
     time.sleep(1)
     insertion = insert_fields(driver, params)

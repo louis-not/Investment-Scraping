@@ -3,18 +3,19 @@ Run This script only
 Change main function according to the needs,
 use params to modified the result from the scraping
 """
+import sys
+sys.path.insert(0, 'E:\Python\InvestmentScraping')
 
-from src.scraping import scrape
-from src.transform import transform
 from src.auto import automate
 import pandas as pd
 import os
 
 
+
 def main():
     """ edit here """
-    groupby = 'year'    # year / sector / province
-    outputname = 'test_output.xlsx'
+    groupby = 'year'    # NOT DONE YET! (year / sector / province)
+    outputname = '2021_scraped.xlsx'
     yearBegin = 2021
     yearEnd = 2021
 
@@ -25,7 +26,7 @@ def main():
         'periode': 'Per Tahun',
         'tahunAwal': 2020,
         'tahunAkhir': 2020,
-        'negara': 'Indonesia',
+        'negara': '',
         'provinsi': 'Daerah Khusus Ibukota Jakarta',
         'kabupaten': None,
         'sektor': None,
