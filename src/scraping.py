@@ -23,16 +23,16 @@ def scrape(params):
     driver.get(url)
     time.sleep(1)
     insertion = insert_fields(driver, params)
-    time.sleep(2)
-    df = get_data(driver)
+    time.sleep(5)
+    pmdn, pma = get_data(driver)
 
-    if insertion and df is not None:
+    if insertion and pmdn is not None and pma is not None:
         print('scraping process succeed')
 
     # time.sleep(2)
     # driver.quit()
 
-    return df
+    return pmdn, pma
 
 
 def insert_fields(driver, params):
@@ -74,7 +74,7 @@ def insert_fields(driver, params):
         driver.find_element(By.XPATH,
                             '//*[@id="peringkat"]/table/tbody/tr[4]/td/div/button'
                             ).click()
-    except:
+    except Exception:
         print('insert_fields failed')
         return False
     finally:
@@ -84,18 +84,22 @@ def insert_fields(driver, params):
 def get_data(driver):
     """scrape data from intended page"""
     try:
-        selector = '#rt_NS_ > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td:nth-child(3) > table'
-        table = driver.find_element(By.CSS_SELECTOR, selector).get_attribute("outerHTML")
-        df = pd.read_html(table, header=0)
-        return df
+        selector_pmdn = '#rt_NS_ > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td:nth-child(3) > table'
+        table_pmdn = driver.find_element(By.CSS_SELECTOR, selector_pmdn).get_attribute("outerHTML")
+        pmdn = pd.read_html(table_pmdn, header=0)
+        selector_pma = '#rt_NS_ > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td:nth-child(1) > table'
+        table_pma = driver.find_element(By.CSS_SELECTOR, selector_pma).get_attribute("outerHTML")
+        pma = pd.read_html(table_pma, header=0)
+        return pmdn, pma
 
-    except:
-        try:
-            log = driver.find_element(By.XPATH,
-                                      '/html/body/form[1]/table/tbody/tr[2]/td/div/div[1]/table/tbody/tr[2]/td/table[2]/tbody/tr[2]/td[3]/div/span'
-                                      ).text
-            if log == 'No data available':
-                print('No data found')
-        finally:
-            print('error on get_data function')
+    except Exception:
+        print('Failed getting data from table')
+        # try:
+        #     log = driver.find_element(By.XPATH,
+        #                               '/html/body/form[1]/table/tbody/tr[2]/td/div/div[1]/table/tbody/tr[2]/td/table[2]/tbody/tr[2]/td[3]/div/span'
+        #                               ).text
+        #     if log == 'No data available':
+        #         print('No data found')
+        # finally:
+        #     print('error on get_data function')
         return None
